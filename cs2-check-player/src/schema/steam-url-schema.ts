@@ -12,6 +12,19 @@ const steamProfileLinkSchema = z
     message: "Input must be a valid Steam Profile URL.",
   });
 
-const steamLinkSchema = steamCustomLinkSchema.or(steamProfileLinkSchema);
+const justIdNumbers = z
+  .string()
+  .min(17)
+  .max(17)
+  .refine(
+    (value) => {
+      return !isNaN(Number(value));
+    },
+    { message: "Input must be a valid Steam ID." }
+  );
+
+const steamLinkSchema = steamCustomLinkSchema
+  .or(steamProfileLinkSchema)
+  .or(justIdNumbers);
 
 export default steamLinkSchema;

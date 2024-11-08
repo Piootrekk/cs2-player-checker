@@ -1,14 +1,24 @@
 "use client";
 
-import PendingSubmit from "@/components/pending-submit";
 import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
 import InvalidInputError from "@/components/invalid-input";
 import React, { useActionState } from "react";
-import validateSteamUrlForm from "./action/steam-url-verify";
+import validateSteamUrlForm from "../../action/steam-url-verify";
+import { Button } from "@/components/ui/button";
+import LoadingSpin from "@/components/ui/loading-spin";
+import { redirect } from "next/navigation";
 
 const IdSteamForm = () => {
-  const [state, action] = useActionState(validateSteamUrlForm, undefined, "/");
+  const [state, action, isPending] = useActionState(
+    validateSteamUrlForm,
+    undefined,
+    "/"
+  );
+
+  if (state?.data) {
+    redirect(`/${state.data}`);
+  }
   return (
     <form className="space-y-4" action={action}>
       <Input
@@ -18,14 +28,20 @@ const IdSteamForm = () => {
         name="steamUrl"
         defaultValue={state?.input}
       />
-      <PendingSubmit className="w-full bg-primary hover:bg-primary/90 shadow-sm transition-all duration-200 hover:shadow-md">
-        <div className="flex items-center gap-2">
-          <SearchIcon size={16} />
-          <span>Check Profile</span>
-        </div>
-      </PendingSubmit>
+      <Button
+        disabled={isPending}
+        className="w-full  hover:bg-primary/90 shadow-sm transition-all duration-200 hover:shadow-md"
+      >
+        {isPending ? (
+          <LoadingSpin />
+        ) : (
+          <div className="flex items-center gap-2">
+            <SearchIcon size={16} />
+            <span>Check Profile</span>
+          </div>
+        )}
+      </Button>
       {state?.error && <InvalidInputError message={state.error} />}
-      {state?.data && <p>{state.data}</p>}
     </form>
   );
 };

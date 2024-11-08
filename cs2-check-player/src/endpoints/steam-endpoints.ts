@@ -1,4 +1,4 @@
-import axiosInstance from "./axios-settings";
+import { axiosInstance } from "./axios-settings";
 
 const steamApiKey = process.env.NEXT_PUBLIC_STEAM_API_KEY;
 if (steamApiKey === undefined) {
@@ -12,15 +12,14 @@ type SteamVanityResponse = {
   };
 };
 
-const vanityEndponit = `https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/`;
+const steamVanityEndponit = `https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/`;
 
 const vanityCustomProfile = async (vanityUrl: string) => {
   const params = new URLSearchParams({
     key: steamApiKey,
     vanityurl: vanityUrl,
   });
-  const url = `${vanityEndponit}?${params.toString()}`;
-  console.log(url);
+  const url = `${steamVanityEndponit}?${params.toString()}`;
   const response = await axiosInstance.get<SteamVanityResponse>(url);
   return response.data.response;
 };

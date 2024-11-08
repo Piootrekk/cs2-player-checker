@@ -5,12 +5,13 @@ import { vanityCustomProfile } from "@/endpoints/steam-endpoints";
 import {
   isCustomUrl,
   parseSteamIdFromUrl,
-} from "@/app/(root)/utils/parse-steamid";
+  revalidateSteamUrl,
+} from "@/lib/parse-steamid";
 
 const validateSteamUrlForm = async (_previosState: any, formData: FormData) => {
   let steamUrl = formData.get("steamUrl") as string;
   if (!steamUrl) return { error: "Steam URL is required" };
-  if (steamUrl.endsWith("/")) steamUrl = steamUrl.slice(0, -1);
+  steamUrl = revalidateSteamUrl(steamUrl);
   const parsedSteamUrl = steamLinkSchema.safeParse(steamUrl);
   if (!parsedSteamUrl.success) {
     return { error: "Unsuccess in validation", input: steamUrl };
