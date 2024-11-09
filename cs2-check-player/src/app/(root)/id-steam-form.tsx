@@ -23,7 +23,7 @@ const IdSteamForm = () => {
     <form className="space-y-4" action={action}>
       <Input
         type="text"
-        placeholder="https://steamcommunity.com/..."
+        placeholder="STEAM URL / CUSTOM URL / STEAM ID"
         className="w-full bg-background/50 border-input shadow-sm transition-shadow duration-200 hover:shadow-md focus:shadow-md"
         name="steamUrl"
         defaultValue={state?.input}

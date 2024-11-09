@@ -1,15 +1,21 @@
-import { FaceitPlayerData } from "@/schema/faceit-data.type";
-import { TError } from "@/components/ui/error-message";
-import { axiosInstance, TResponse } from "./axios-settings";
-import { AxiosError } from "axios";
-import { TPlayer } from "@/schema/faceit-data.type";
+import {
+  FaceitPlayerData,
+  TFaceitDataDetails,
+  TFaceitPlayerData,
+} from "@/schema/faceit-data.type";
+import {
+  axiosInstance,
+  axiosFaceitInstance,
+  TResponse,
+} from "./axios-settings";
+import transformErrorToDefault from "@/lib/error-setter";
 
 const faceitEndpoint = "https://www.faceit.com/api/search/v1/";
 const openFaceitEndpoint = "https://open.faceit.com/data/v4/";
 
 const getPlayerFaceitBySteamId = async (
   steamId: string
-): Promise<TResponse<TPlayer[]>> => {
+): Promise<TResponse<TFaceitPlayerData>> => {
   try {
     const params = new URLSearchParams({
       limit: "10",
@@ -19,29 +25,36 @@ const getPlayerFaceitBySteamId = async (
     const url = `${faceitEndpoint}?${params.toString()}`;
     const response = await axiosInstance.get<FaceitPlayerData>(url);
     return {
-      data: response.data.payload.players.results,
+      data: response.data.payload.players,
       error: undefined,
     };
   } catch (error) {
-    if (error instanceof AxiosError) {
-      const axError = {
-        status: error.response?.status,
-        message: error.message,
-      };
-      return {
-        error: axError,
-        data: undefined,
-      };
-    }
-    const genError: TError = {
-      status: 500,
-      message: "Internal server error",
-    };
+    const err = transformErrorToDefault(error);
     return {
-      error: genError,
       data: undefined,
+      error: err,
     };
   }
 };
 
-export { getPlayerFaceitBySteamId };
+const getPlayerStatsByName = async (nickname: string) => {
+  try {
+    const params = new URLSearchParams({
+      nickname,
+    });
+    const url = `${openFaceitEndpoint}/players?${params.toString()}`;
+    const response = await axiosFaceitInstance.get<TFaceitDataDetails>(url);
+    return {
+      data: response.data,
+      error: undefined,
+    };
+  } catch (error) {
+    const err = transformErrorToDefault(error);
+    return {
+      data: undefined,
+      error: err,
+    };
+  }
+};
+
+export { getPlayerFaceitBySteamId, getPlayerStatsByName };

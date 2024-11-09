@@ -9,6 +9,10 @@ import {
 import ErrorMessage from "@/components/ui/error-message";
 import { getPlayerFaceitBySteamId } from "@/endpoints/faceit-endpoints";
 import { Suspense } from "react";
+import CardFaceit from "./card-faceit";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 type UserProfileProps = {
   params: Awaited<{
@@ -30,16 +34,39 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params }) => {
 
   return (
     <Suspense fallback={<Loading />}>
-      <Card className="max-w-lg">
+      <Card className="rounded-lg">
+        <div className="flex justify-start">
+          <Button variant={"ghost"} asChild className="m-4">
+            <Link href="/">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              <span>Back to Search</span>
+            </Link>
+          </Button>
+        </div>
         <CardHeader>
-          <CardTitle>Faceit profiles</CardTitle>
+          <CardTitle className="text-2xl">Checked profile</CardTitle>
           <CardDescription>
-            Profiles related to provided Steam ID
+            Profile found for steamid: {steamid}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {res.data.length === 0 && <p>No profie found</p>}
-          
+          <div className="flex flex-col gap-y-4">
+            {res.data.total_count === 0 ? (
+              <p className="text-muted-foreground">No profie found</p>
+            ) : (
+              <p>
+                Found {res.data.total_count} profiles related to selected steam
+                accout:
+              </p>
+            )}
+            {res.data.results.map((player) => (
+              <CardFaceit
+                key={player.id}
+                name={player.nickname}
+                countryLink={player.country}
+              />
+            ))}
+          </div>
         </CardContent>
       </Card>
     </Suspense>
