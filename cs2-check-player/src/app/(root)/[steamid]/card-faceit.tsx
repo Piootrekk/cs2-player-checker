@@ -26,7 +26,7 @@ const CardFaceit: React.FC<CardFaceitProps> = async ({ name, countryLink }) => {
           href={`https://www.faceit.com/en/players/${name}`}
           target="_blank"
           rel="noreferrer"
-          className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute top-3 right-3"
         >
           <ExternalLink className="w-4 h-4" />
         </a>

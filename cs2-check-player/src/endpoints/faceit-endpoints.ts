@@ -2,7 +2,7 @@ import {
   FaceitPlayerData,
   TFaceitDataDetails,
   TFaceitPlayerData,
-} from "@/schema/faceit-data.type";
+} from "@/schema/faceit-data.types";
 import {
   axiosInstance,
   axiosFaceitInstance,
@@ -37,7 +37,9 @@ const getPlayerFaceitBySteamId = async (
   }
 };
 
-const getPlayerStatsByName = async (nickname: string) => {
+const getPlayerStatsByName = async (
+  nickname: string
+): Promise<TResponse<TFaceitDataDetails>> => {
   try {
     const params = new URLSearchParams({
       nickname,

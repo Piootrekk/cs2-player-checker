@@ -18,12 +18,11 @@ const validateSteamUrlForm = async (_previosState: any, formData: FormData) => {
   }
   const steamId = parseSteamIdFromUrl(steamUrl);
   if (!isCustomUrl(steamUrl)) return { data: steamId };
-  try {
-    const response = await vanityCustomProfile(steamId);
-    return { data: response.steamid };
-  } catch (error) {
-    return { error: "Invalid vanity URL", input: steamUrl };
+  const response = await vanityCustomProfile(steamId);
+  if (response.error) {
+    return { error: response.error.message, input: steamUrl };
   }
+  return { data: response.data.response.steamid };
 };
 
 export default validateSteamUrlForm;

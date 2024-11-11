@@ -1,10 +1,15 @@
 import { TError } from "@/components/ui/error-message";
 import axios from "axios";
 
-type TResponse<T> = {
-  data: T | undefined;
-  error: TError | undefined;
-};
+type TResponse<T> =
+  | {
+      data: T;
+      error?: never;
+    }
+  | {
+      data?: never;
+      error: TError;
+    };
 
 const axiosInstance = axios.create({
   headers: {

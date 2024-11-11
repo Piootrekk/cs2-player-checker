@@ -26,7 +26,7 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params }) => {
     return <ErrorMessage message="Invalid input" />;
   }
   const res = await getPlayerFaceitBySteamId(steamid);
-  if (res.error || res.data === undefined) {
+  if (res.error) {
     return (
       <ErrorMessage message={res.error!.message} status={res.error!.status} />
     );
@@ -52,11 +52,11 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params }) => {
         <CardContent>
           <div className="flex flex-col gap-y-4">
             {res.data.total_count === 0 ? (
-              <p className="text-muted-foreground">No profie found</p>
+              <p className="text-muted-foreground">No faceit profile found</p>
             ) : (
               <p>
-                Found {res.data.total_count} profiles related to selected steam
-                accout:
+                Found {res.data.total_count} faceit profile related to selected
+                steam accout:
               </p>
             )}
             {res.data.results.map((player) => (
