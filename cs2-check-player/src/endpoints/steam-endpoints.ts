@@ -1,7 +1,7 @@
 import transformErrorToDefault from "@/lib/error-setter";
 import { axiosInstance, TResponse } from "./axios-settings";
 import { SteamVanityResponse } from "@/schema/profile-vanity.types";
-import { TSteamProfile } from "@/schema/Steam-profile.types";
+import { TSteamProfile } from "@/schema/steam-profile.types";
 import { TPlayersBanned } from "@/schema/players-banned.types";
 
 const steamApiKey = process.env.NEXT_PUBLIC_STEAM_API_KEY;

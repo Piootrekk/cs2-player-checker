@@ -7,12 +7,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import ErrorMessage from "@/components/ui/error-message";
-import { getPlayerFaceitBySteamId } from "@/endpoints/faceit-endpoints";
 import { Suspense } from "react";
-import CardFaceit from "./card-faceit";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import CardFaceit from "./card-faceit";
 
 type UserProfileProps = {
   params: Awaited<{
@@ -24,12 +23,6 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params }) => {
   const { steamid } = await params;
   if (!steamid) {
     return <ErrorMessage message="Invalid input" />;
-  }
-  const res = await getPlayerFaceitBySteamId(steamid);
-  if (res.error) {
-    return (
-      <ErrorMessage message={res.error!.message} status={res.error!.status} />
-    );
   }
 
   return (
@@ -50,23 +43,7 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params }) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col gap-y-4">
-            {res.data.total_count === 0 ? (
-              <p className="text-muted-foreground">No faceit profile found</p>
-            ) : (
-              <p>
-                Found {res.data.total_count} faceit profile related to selected
-                steam accout:
-              </p>
-            )}
-            {res.data.results.map((player) => (
-              <CardFaceit
-                key={player.id}
-                name={player.nickname}
-                countryLink={player.country}
-              />
-            ))}
-          </div>
+          <CardFaceit steamid={steamid} />
         </CardContent>
       </Card>
     </Suspense>
