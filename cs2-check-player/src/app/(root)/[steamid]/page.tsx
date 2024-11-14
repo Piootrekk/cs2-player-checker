@@ -12,6 +12,13 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import CardFaceit from "./card-faceit";
+import { playerSteamPorfile } from "@/endpoints/steam-endpoints";
+import Image from "next/image";
+import {
+  getCommunityVisibilityState,
+  getPersonalState,
+} from "@/schema/steam-profile.types";
+import SteamInfo from "./steam-info";
 
 type UserProfileProps = {
   params: Awaited<{
@@ -24,6 +31,7 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params }) => {
   if (!steamid) {
     return <ErrorMessage message="Invalid input" />;
   }
+  const steamProfile = await playerSteamPorfile(steamid);
 
   return (
     <Suspense fallback={<Loading />}>
@@ -43,7 +51,21 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params }) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <CardFaceit steamid={steamid} />
+          {steamProfile.error && (
+            <ErrorMessage
+              message={steamProfile.error.message}
+              status={steamProfile.error.status}
+            />
+          )}
+          {!steamProfile.data ||
+          steamProfile.data.response.players.length === 0 ? (
+            <ErrorMessage message="No steam profile found for this steamid" />
+          ) : (
+            <>
+              <SteamInfo steamProfile={steamProfile.data} />
+              <CardFaceit steamid={steamid} />
+            </>
+          )}
         </CardContent>
       </Card>
     </Suspense>

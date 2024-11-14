@@ -1,80 +1,56 @@
+type TPlayer = {
+  steamid: string;
+  communityvisibilitystate: number;
+  profilestate: number;
+  personaname: string;
+  commentpermission: string;
+  profileurl: string;
+  avatar: string;
+  avatarmedium: string;
+  avatarfull: string;
+  avatarhash: string;
+  lastlogoff: number;
+  personastate: number;
+  realname: string;
+  primaryclanid: string;
+  timecreated: number;
+  personastateflags: number;
+};
+
 type TSteamProfile = {
   response: {
-    players: [
-      {
-        steamid: string;
-        communityvisibilitystate: number;
-        profilestate: number;
-        personaname: string;
-        commentpermission: string;
-        profileurl: string;
-        avatar: string;
-        avatarmedium: string;
-        avatarfull: string;
-        avatarhash: string;
-        lastlogoff: number;
-        personastate: number;
-        realname: string;
-        primaryclanid: string;
-        timecreated: number;
-        personastateflags: number;
-      }
-    ];
+    players: TPlayer[];
   };
 };
 
-const getPersonalState = (state: number) => {
-  switch (state) {
-    case 0:
-      return "Offline";
-    case 1:
-      return "Online";
-    case 2:
-      return "Busy";
-    case 3:
-      return "Away";
-    case 4:
-      return "Snooze";
-    case 5:
-      return "Looking to trade";
-    case 6:
-      return "Looking to play";
-    default:
-      return "Offline";
+const getPersonalState = (state: number): string => {
+  const personalState = [
+    "Offline",
+    "Online",
+    "Busy",
+    "Away",
+    "Snooze",
+    "Looking to trade",
+    "Looking to play",
+  ];
+  if (state < 0 || state > 6) {
+    return "Offline";
   }
+  return personalState[state];
 };
 
-const getProfileState = (state: number) => {
-  switch (state) {
-    case 0:
-      return "Profile is not configured or not visible";
-    case 1:
-      return "Profile is configured properly";
-    default:
-      return "Profile is not configured or not visible";
-  }
+const getProfileState = (state: number): string => {
+  return state === 1
+    ? "Profile configured"
+    : "Profile is not configured or not visible";
 };
 
-const getCommunityVisibilityState = (state: number) => {
-  switch (state) {
-    case 1:
-      return "Private";
-    case 3:
-      return "Public";
-    default:
-      return "Private";
-  }
+const getCommunityVisibilityState = (state: number): string => {
+  return state === 3 ? "Public" : "Private";
 };
 
-const getCommentPermission = (state: number) => {
-  switch (state) {
-    case 0:
-      return "Private to comment";
-    case 1:
-      return "Public to comment";
-    default:
-      return "Private to comment";
-  }
+const getCommentPermission = (state: number): string => {
+  return state === 1 ? "Public to comment" : "Private to comment";
 };
 
 export type { TSteamProfile };

@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
         port: "",
         search: "",
       },
+      {
+        protocol: "https",
+        hostname: "avatars.steamstatic.com",
+        port: "",
+        search: "",
+      },
     ],
   },
 };

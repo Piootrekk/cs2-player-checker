@@ -17,7 +17,7 @@ const CardFaceit: React.FC<CardFaceitProps> = async ({ steamid }) => {
   }
   return (
     <Suspense fallback={<Skeleton className="w-full h-14" />}>
-      <div className="flex flex-col gap-y-4">
+      <div className="flex flex-col gap-y-4 mt-4">
         {res.data.total_count === 0 ? (
           <p className="text-muted-foreground">No faceit profile found</p>
         ) : (

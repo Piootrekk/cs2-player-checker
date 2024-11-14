@@ -17,7 +17,6 @@ const CardFaceitDetails: React.FC<CardFaceitDetailsProps> = async ({
   countryLink,
 }) => {
   const res = await getPlayerStatsByName(name);
-  console.log(res);
   if (res.error || res.data === undefined) {
     return null;
   }
