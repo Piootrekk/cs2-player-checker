@@ -9,11 +9,11 @@ type TPlayer = {
   avatarmedium: string;
   avatarfull: string;
   avatarhash: string;
-  lastlogoff: number;
+  lastlogoff?: number;
   personastate: number;
-  realname: string;
-  primaryclanid: string;
-  timecreated: number;
+  realname?: string;
+  primaryclanid?: string;
+  timecreated?: number;
   personastateflags: number;
 };
 
@@ -53,7 +53,7 @@ const getCommentPermission = (state: number): string => {
   return state === 1 ? "Public to comment" : "Private to comment";
 };
 
-export type { TSteamProfile };
+export type { TSteamProfile, TPlayer };
 export {
   getPersonalState,
   getProfileState,

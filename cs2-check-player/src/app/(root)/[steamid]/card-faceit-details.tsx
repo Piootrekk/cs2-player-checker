@@ -37,8 +37,8 @@ const CardFaceitDetails: React.FC<CardFaceitDetailsProps> = async ({
             {res.data.avatar ? (
               <Image
                 src={res.data.avatar}
-                width={64}
-                height={64}
+                width={128}
+                height={128}
                 alt={name}
                 className="h-16 w-16 rounded-lg object-cover"
                 placeholder="empty"
@@ -46,11 +46,15 @@ const CardFaceitDetails: React.FC<CardFaceitDetailsProps> = async ({
             ) : (
               <User className="w-16 h-16 rounded-lg" />
             )}
-            <div className="absolute -bottom-2 -right-2 w-8 h-8">
+            <div className="absolute -bottom-10 -right-6 w-16 h-16">
               <DisplayFaceitLvl
-                lvl={res.data.games.cs2?.skill_level || 0}
-                height={32}
-                width={32}
+                lvl={
+                  res.data.games.cs2?.skill_level ||
+                  res.data.games.csgo?.skill_level ||
+                  0
+                }
+                height={64}
+                width={64}
               />
             </div>
           </div>
@@ -67,7 +71,15 @@ const CardFaceitDetails: React.FC<CardFaceitDetailsProps> = async ({
             </div>
             <div className="flex items-center gap-1.5 text-sm ">
               <TrendingUp className="w-4 h-4 " />
-              <span>{res.data.games.cs2?.faceit_elo || 0} ELO</span>
+              <span>
+                {res.data.games.cs2?.faceit_elo ||
+                  res.data.games.csgo?.faceit_elo ||
+                  0}{" "}
+                ELO
+              </span>
+            </div>
+            <div className="flex items-center gap-1.5 text-sm text-foreground">
+              
             </div>
           </div>
         </div>
