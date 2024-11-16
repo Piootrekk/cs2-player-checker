@@ -1,22 +1,14 @@
 import Loading from "@/components/loading";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import ErrorMessage from "@/components/ui/error-message";
 import { Suspense } from "react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import CardFaceit from "./card-faceit";
 import {
   playersHoursCS2,
   playerSteamPorfile,
 } from "@/endpoints/steam-endpoints";
-import SteamInfo from "./steam-info";
+import SteamCard from "./card-steam";
+import ReturnButton from "@/components/return-button";
+import ProfileHeader from "./profile-header";
 
 type UserProfileProps = {
   params: Awaited<{
@@ -33,23 +25,13 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params }) => {
   const cs2details = await playersHoursCS2(steamid);
 
   return (
-    <Suspense fallback={<Loading />}>
-      <Card className="rounded-lg">
+    <main className="min-h-screen bg-gradient-to-tr from-background via-background to-muted/100">
+      <div className="max-w-4xl mx-auto p-6">
         <div className="flex justify-start">
-          <Button variant={"ghost"} asChild className="m-4">
-            <Link href="/">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              <span>Back to Search</span>
-            </Link>
-          </Button>
+          <ReturnButton />
         </div>
-        <CardHeader>
-          <CardTitle className="text-2xl">Checked profile</CardTitle>
-          <CardDescription>
-            Profile found for steamid: {steamid}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+        <div className="space-y-8">
+          <ProfileHeader steamid={steamid} />
           {steamProfile.data === undefined ||
           steamProfile.error ||
           cs2details.error ? (
@@ -62,16 +44,16 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params }) => {
             />
           ) : (
             <>
-              <SteamInfo
+              <SteamCard
                 steamProfile={steamProfile.data}
                 cs2Details={cs2details.data}
               />
               <CardFaceit steamid={steamid} />
             </>
           )}
-        </CardContent>
-      </Card>
-    </Suspense>
+        </div>
+      </div>
+    </main>
   );
 };
 

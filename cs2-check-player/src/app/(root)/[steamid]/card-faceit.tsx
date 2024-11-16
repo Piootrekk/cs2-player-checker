@@ -17,22 +17,26 @@ const CardFaceit: React.FC<CardFaceitProps> = async ({ steamid }) => {
   }
   return (
     <Suspense fallback={<Skeleton className="w-full h-24 rounded-b-lg mt-6" />}>
-      <div className="flex flex-col gap-y-4 mt-4">
-        {res.data.total_count === 0 ? (
-          <p className="text-muted-foreground">No faceit profile found</p>
-        ) : (
-          <p>
-            Found {res.data.total_count} faceit profile related to selected
-            steam accout:
-          </p>
-        )}
-        {res.data.results.map((player) => (
-          <CardFaceitDetails
-            key={player.id}
-            name={player.nickname}
-            countryLink={player.country}
-          />
-        ))}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold">
+            FACEIT Accounts
+            <span className="ml-2 text-sm text-muted-foreground">
+              {res.data.total_count === 0
+                ? "No account found"
+                : `Found ${res.data.total_count} profiles`}
+            </span>
+          </h2>
+        </div>
+        <div className="grid gap-4">
+          {res.data.results.map((player) => (
+            <CardFaceitDetails
+              key={player.id}
+              name={player.nickname}
+              countryLink={player.country}
+            />
+          ))}
+        </div>
       </div>
     </Suspense>
   );

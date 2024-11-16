@@ -1,4 +1,6 @@
 import DisplayFaceitLvl from "@/components/display-current-faceit-lvl";
+import EternalLink from "@/components/external-link";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import ErrorMessage from "@/components/ui/error-message";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -23,15 +25,7 @@ const CardFaceitDetails: React.FC<CardFaceitDetailsProps> = async ({
 
   return (
     <Suspense fallback={<Skeleton className="w-full h-24" />}>
-      <Card className="group relative bg-secondary border-secondary/50 hover:bg-secondary/70 transition-all duration-300">
-        <a
-          href={`https://www.faceit.com/en/players/${name}`}
-          target="_blank"
-          rel="noreferrer"
-          className="absolute top-3 right-3"
-        >
-          <ExternalLink className="w-4 h-4" />
-        </a>
+      <Card className="bg-primary/5 border-none">
         <div className="p-4 flex items-center gap-4">
           <div className="relative">
             {res.data.avatar ? (
@@ -58,16 +52,19 @@ const CardFaceitDetails: React.FC<CardFaceitDetailsProps> = async ({
               />
             </div>
           </div>
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-1">
-              <h3 className="font-semibold text-lg truncate">{name}</h3>
-              <Image
-                src={`https://flagcdn.com/${countryLink.toLowerCase()}.svg`}
-                width={20}
-                height={16}
-                alt={name}
-                className="w-5 h-4 rounded object-cover"
-              />
+          <div className="flex-1">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5 text-sm">
+                <h3 className="font-semibold text-lg truncate">{name}</h3>
+                <Image
+                  src={`https://flagcdn.com/${countryLink.toLowerCase()}.svg`}
+                  width={20}
+                  height={16}
+                  alt={name}
+                  className="w-5 h-4 rounded object-cover"
+                />
+              </div>
+              <EternalLink link={`https://www.faceit.com/en/players/${name}`} />
             </div>
             <div className="flex items-center gap-1.5 text-sm ">
               <TrendingUp className="w-4 h-4 " />
@@ -78,9 +75,7 @@ const CardFaceitDetails: React.FC<CardFaceitDetailsProps> = async ({
                 ELO
               </span>
             </div>
-            <div className="flex items-center gap-1.5 text-sm text-foreground">
-              
-            </div>
+            <div className="flex items-center gap-1.5 text-sm text-foreground"></div>
           </div>
         </div>
       </Card>
@@ -89,3 +84,14 @@ const CardFaceitDetails: React.FC<CardFaceitDetailsProps> = async ({
 };
 
 export default CardFaceitDetails;
+
+{
+  /* <a
+          href={`https://www.faceit.com/en/players/${name}`}
+          target="_blank"
+          rel="noreferrer"
+          className="absolute top-3 right-3"
+        >
+          <ExternalLink className="w-4 h-4" />
+        </a> */
+}

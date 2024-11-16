@@ -3,10 +3,10 @@ import { Skeleton } from "./ui/skeleton";
 const Loading = () => {
   return (
     <>
-      <section className="flex flex-col justify-center my-48 h-full space-y-4">
-        <Skeleton className="w-full h-14" />
-        <Skeleton className="w-full h-14" />
-        <Skeleton className="w-full h-14" />
+      <section className="flex flex-col justify-center items-center h-full min-h-screen space-y-4">
+        <Skeleton className="w-1/3 h-14" />
+        <Skeleton className="w-1/3 h-14" />
+        <Skeleton className="w-1/3 h-14" />
       </section>
     </>
   );
