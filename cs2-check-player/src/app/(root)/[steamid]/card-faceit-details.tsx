@@ -1,11 +1,10 @@
 import DisplayFaceitLvl from "@/components/display-current-faceit-lvl";
 import EternalLink from "@/components/external-link";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import ErrorMessage from "@/components/ui/error-message";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getPlayerStatsByName } from "@/endpoints/faceit-endpoints";
-import { ExternalLink, TrendingUp, User } from "lucide-react";
+import { TFaceitDataDetails } from "@/schema/faceit-data.types";
+import { Calendar, TrendingUp, User, Verified } from "lucide-react";
 import Image from "next/image";
 import { Suspense } from "react";
 
@@ -14,25 +13,42 @@ type CardFaceitDetailsProps = {
   countryLink: string;
 };
 
+const getFaceitELOAndGame = (res: TFaceitDataDetails) => {
+  if (res.games.cs2)
+    return {
+      elo: res.games.cs2.faceit_elo,
+      game: "CS2",
+    };
+  if (res.games.csgo)
+    return {
+      elo: res.games.csgo.faceit_elo,
+      game: "CSGO",
+    };
+  return {
+    elo: 0,
+    game: "No game",
+  };
+};
+
 const CardFaceitDetails: React.FC<CardFaceitDetailsProps> = async ({
   name,
   countryLink,
 }) => {
-  const res = await getPlayerStatsByName(name);
-  if (res.error || res.data === undefined) {
+  const playerStats = await getPlayerStatsByName(name);
+  if (playerStats.error || playerStats.data === undefined) {
     return null;
   }
-
+  const playerEloAndGame = getFaceitELOAndGame(playerStats.data);
   return (
     <Suspense fallback={<Skeleton className="w-full h-24" />}>
       <Card className="bg-primary/5 border-none">
         <div className="p-4 flex items-center gap-4">
           <div className="relative">
-            {res.data.avatar ? (
+            {playerStats.data.avatar ? (
               <Image
-                src={res.data.avatar}
-                width={128}
-                height={128}
+                src={playerStats.data.avatar}
+                width={64}
+                height={64}
                 alt={name}
                 className="h-16 w-16 rounded-lg object-cover"
                 placeholder="empty"
@@ -40,16 +56,19 @@ const CardFaceitDetails: React.FC<CardFaceitDetailsProps> = async ({
             ) : (
               <User className="w-16 h-16 rounded-lg" />
             )}
-            <div className="absolute -bottom-10 -right-6 w-16 h-16">
-              <DisplayFaceitLvl
-                lvl={
-                  res.data.games.cs2?.skill_level ||
-                  res.data.games.csgo?.skill_level ||
-                  0
-                }
-                height={64}
-                width={64}
-              />
+            <div className="absolute top-[42px] left-4 w-20 h-20">
+              {playerStats.data.games.cs2?.skill_level ||
+              playerStats.data.games.csgo?.skill_level ? (
+                <DisplayFaceitLvl
+                  lvl={
+                    playerStats.data.games.cs2?.skill_level ||
+                    playerStats.data.games.csgo?.skill_level ||
+                    1
+                  }
+                  width={64}
+                  height={64}
+                />
+              ) : null}
             </div>
           </div>
           <div className="flex-1">
@@ -68,14 +87,25 @@ const CardFaceitDetails: React.FC<CardFaceitDetailsProps> = async ({
             </div>
             <div className="flex items-center gap-1.5 text-sm ">
               <TrendingUp className="w-4 h-4 " />
-              <span>
-                {res.data.games.cs2?.faceit_elo ||
-                  res.data.games.csgo?.faceit_elo ||
-                  0}{" "}
-                ELO
+              <span>{playerEloAndGame.elo} ELO</span>
+              <span className="text-muted-foreground">
+                {`(${playerEloAndGame.game})`}
               </span>
             </div>
-            <div className="flex items-center gap-1.5 text-sm text-foreground"></div>
+            <div className="flex items-center gap-1.5 text-sm ">
+              <Calendar className="w-4 h-4 " />
+              <span>
+                {playerStats.data.activated_at
+                  ? new Date(playerStats.data.activated_at).toLocaleDateString()
+                  : "Not activated"}
+              </span>
+            </div>{" "}
+            <div className="flex items-center gap-1.5 text-sm ">
+              <Verified className="w-4 h-4 " />
+              <span>
+                {playerStats.data.verified ? "Verified" : "Not verified"}
+              </span>
+            </div>
           </div>
         </div>
       </Card>
@@ -84,14 +114,3 @@ const CardFaceitDetails: React.FC<CardFaceitDetailsProps> = async ({
 };
 
 export default CardFaceitDetails;
-
-{
-  /* <a
-          href={`https://www.faceit.com/en/players/${name}`}
-          target="_blank"
-          rel="noreferrer"
-          className="absolute top-3 right-3"
-        >
-          <ExternalLink className="w-4 h-4" />
-        </a> */
-}

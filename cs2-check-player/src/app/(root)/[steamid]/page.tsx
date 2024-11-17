@@ -1,6 +1,4 @@
-import Loading from "@/components/loading";
 import ErrorMessage from "@/components/ui/error-message";
-import { Suspense } from "react";
 import CardFaceit from "./card-faceit";
 import {
   playersHoursCS2,
@@ -9,6 +7,7 @@ import {
 import SteamCard from "./card-steam";
 import ReturnButton from "@/components/return-button";
 import ProfileHeader from "./profile-header";
+import CardOther from "./card-other";
 
 type UserProfileProps = {
   params: Awaited<{
@@ -26,7 +25,7 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params }) => {
 
   return (
     <main className="min-h-screen bg-gradient-to-tr from-background via-background to-muted/100">
-      <div className="max-w-4xl mx-auto p-6">
+      <div className="max-w-xl mx-auto p-6">
         <div className="flex justify-start">
           <ReturnButton />
         </div>
@@ -49,6 +48,7 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params }) => {
                 cs2Details={cs2details.data}
               />
               <CardFaceit steamid={steamid} />
+              <CardOther steamid={steamid} />
             </>
           )}
         </div>

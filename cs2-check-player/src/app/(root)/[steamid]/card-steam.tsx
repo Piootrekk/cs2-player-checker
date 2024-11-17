@@ -21,7 +21,6 @@ type SteamCardProps = {
 
 const SteamCard: React.FC<SteamCardProps> = ({ steamProfile, cs2Details }) => {
   const getCS2Details = (cs2Details: TCS2Global) => {
-    console.log(cs2Details);
     if (cs2Details.response.game_count === 0) return "no CS2";
     if (!cs2Details.response.games) return "Private";
     if (cs2Details.response.games[0].playtime_forever === 0)
