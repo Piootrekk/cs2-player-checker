@@ -1,5 +1,5 @@
-import { Card } from "@/components/ui/card";
-import CardScopeGG from "./(card-others-comp)/card-scope-gg";
+import CardOthersServices from "./card-other-services";
+import CardScopeGG from "./card-scope-gg";
 
 type CardOtherProps = {
   steamid: string;
@@ -17,6 +17,7 @@ const CardOther: React.FC<CardOtherProps> = ({ steamid }) => {
         </h2>
       </div>
       <CardScopeGG steamid={steamid} />
+      <CardOthersServices steamid={steamid} />
     </div>
   );
 };

@@ -1,5 +1,6 @@
-import { Card } from "@/components/ui/card";
 import { scopeGGAccount } from "@/endpoints/other-endpoints";
+import scope from "@/components/svg/scope.svg";
+import CardService from "@/components/card-service";
 
 type CardScopeGGProps = {
   steamid: string;
@@ -11,11 +12,12 @@ const CardScopeGG: React.FC<CardScopeGGProps> = async ({ steamid }) => {
     return null;
   }
   return (
-    <Card className="bg-primary/5 border-none">
-      <div className="p-4 flex items-center gap-4">
-        <span>{res.data.isRegistered ? "Has account" : "Not registered"}</span>
-      </div>
-    </Card>
+    <CardService
+      pageName="scope"
+      urlProfile={`https://app.scope.gg/dashboard/${res.data.accountData.steamAccountId}`}
+      icon={scope}
+      hasAccount={res.data.isRegistered}
+    />
   );
 };
 
