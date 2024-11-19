@@ -3,8 +3,9 @@ import { axiosInstance, TResponse } from "./axios-settings";
 import { SteamVanityResponse } from "@/schema/profile-vanity.types";
 import { TPlayer, TSteamProfile } from "@/schema/steam-profile.types";
 import { TPlayersBanned } from "@/schema/players-banned.types";
-import { TCS2Global, TCS2Game } from "@/schema/playtime-cs2.types";
+import { TCS2Global } from "@/schema/playtime-cs2.types";
 const steamApiKey = process.env.NEXT_PUBLIC_STEAM_API_KEY;
+
 if (steamApiKey === undefined) {
   throw new Error("Missing Steam API Key");
 }

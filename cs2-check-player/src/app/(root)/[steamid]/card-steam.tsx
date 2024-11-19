@@ -64,7 +64,7 @@ const SteamCard: React.FC<SteamCardProps> = ({ steamProfile, cs2Details }) => {
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-semibold">
-        Steam Account
+        STEAM Account
         <span className="ml-2 text-sm text-muted-foreground">
           Base Information
         </span>

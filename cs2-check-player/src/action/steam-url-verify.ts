@@ -8,7 +8,7 @@ import {
   revalidateSteamUrl,
 } from "@/lib/parse-steamid";
 
-const validateSteamUrlForm = async (_previosState: any, formData: FormData) => {
+const validateSteamUrlForm = async (_: unknown, formData: FormData) => {
   let steamUrl = formData.get("steamUrl") as string;
   if (!steamUrl) return { error: "Steam URL is required" };
   steamUrl = revalidateSteamUrl(steamUrl);

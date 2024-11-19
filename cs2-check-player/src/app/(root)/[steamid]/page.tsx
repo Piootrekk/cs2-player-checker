@@ -7,12 +7,10 @@ import {
 import SteamCard from "./card-steam";
 import ReturnButton from "@/components/return-button";
 import ProfileHeader from "./profile-header";
-import CardOther from "./card-other";
+import CardOther from "./card-services";
 
 type UserProfileProps = {
-  params: Awaited<{
-    steamid: string;
-  }>;
+  params: Promise<{ steamid: string }>;
 };
 
 const UserProfile: React.FC<UserProfileProps> = async ({ params }) => {

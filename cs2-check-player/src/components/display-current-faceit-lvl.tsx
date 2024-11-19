@@ -1,14 +1,14 @@
 import React from "react";
-import lvl_1 from "./png/lvl_1.png";
-import lvl_2 from "./png/lvl_2.png";
-import lvl_3 from "./png/lvl_3.png";
-import lvl_4 from "./png/lvl_4.png";
-import lvl_5 from "./png/lvl_5.png";
-import lvl_6 from "./png/lvl_6.png";
-import lvl_7 from "./png/lvl_7.png";
-import lvl_8 from "./png/lvl_8.png";
-import lvl_9 from "./png/lvl_9.png";
-import lvl_10 from "./png/lvl_10.png";
+import lvl_1 from "./lvls/lvl_1.png";
+import lvl_2 from "./lvls/lvl_2.png";
+import lvl_3 from "./lvls/lvl_3.png";
+import lvl_4 from "./lvls/lvl_4.png";
+import lvl_5 from "./lvls/lvl_5.png";
+import lvl_6 from "./lvls/lvl_6.png";
+import lvl_7 from "./lvls/lvl_7.png";
+import lvl_8 from "./lvls/lvl_8.png";
+import lvl_9 from "./lvls/lvl_9.png";
+import lvl_10 from "./lvls/lvl_10.png";
 
 import Image from "next/image";
 

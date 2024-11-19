@@ -1,8 +1,9 @@
 import CardService from "@/components/card-service";
-import leetify from "@/components/svg/leetify.svg";
-import allstars from "@/components/svg/allstars.svg";
-import csstats from "@/components/svg/csstats.svg";
-import steamiduk from "@/components/svg/steamiduk.png";
+import leetify from "@/components/icons-services/leetify.svg";
+import allstars from "@/components/icons-services/allstars.svg";
+import csstats from "@/components/icons-services/csstats.svg";
+import steamiduk from "@/components/icons-services/steamiduk.png";
+
 type CardOthersServicesProps = {
   steamid: string;
 };

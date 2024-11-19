@@ -1,3 +1,4 @@
+import CardEsportal from "./card-esportal";
 import CardOthersServices from "./card-other-services";
 import CardScopeGG from "./card-scope-gg";
 
@@ -18,6 +19,7 @@ const CardOther: React.FC<CardOtherProps> = ({ steamid }) => {
       </div>
       <CardScopeGG steamid={steamid} />
       <CardOthersServices steamid={steamid} />
+      <CardEsportal steamid={steamid} />
     </div>
   );
 };

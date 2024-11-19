@@ -1,5 +1,5 @@
 import { scopeGGAccount } from "@/endpoints/other-endpoints";
-import scope from "@/components/svg/scope.svg";
+import scope from "@/components/icons-services/scope.svg";
 import CardService from "@/components/card-service";
 
 type CardScopeGGProps = {

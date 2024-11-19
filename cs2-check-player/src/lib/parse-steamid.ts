@@ -17,9 +17,9 @@ const revalidateSteamUrl = (url: string): string => {
 };
 
 const convertToSteamID3 = (steamID64: string): number => {
-  const DEFAULT = 76561197960265728n;
+  const defaultID = 76561197960265728n;
   const parsedID64 = BigInt(steamID64);
-  const steamID3 = parsedID64 - DEFAULT;
+  const steamID3 = parsedID64 - defaultID;
   return Number(steamID3);
 };
 
