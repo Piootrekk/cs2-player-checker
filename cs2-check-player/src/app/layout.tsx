@@ -14,9 +14,12 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Check is player is legit",
+  title: "Check if player is legit",
   description:
     "Find out if a player is legit or not, using faceit API and more",
+  icons: {
+    icon: "/cs2.svg",
+  },
 };
 
 export default function RootLayout({
