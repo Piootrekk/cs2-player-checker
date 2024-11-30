@@ -19,7 +19,7 @@ const validateSteamUrlForm = async (_: unknown, formData: FormData) => {
     return { error: "Unsuccess in validation", input: steamUrl };
   }
   const steamId = parseSteamIdFromUrl(steamUrl);
-  if (!isCustomUrl(steamUrl)) return { data: steamId };
+  if (!isCustomUrl(steamUrl)) redirect(`/${steamId}`);
   const response = await vanityCustomProfile(steamId);
   if (response.error) {
     return { error: response.error.message, input: steamUrl };

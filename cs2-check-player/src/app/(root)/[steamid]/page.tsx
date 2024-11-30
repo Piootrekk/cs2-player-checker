@@ -44,6 +44,22 @@ export async function generateMetadata({
         },
       ],
     },
+    twitter: {
+      card: "summary",
+      site: process.env.NEXT_PUBLIC_DOMAIN,
+      creator: "cs addicted",
+      title: `Player ${steamid} - ${steamProfile.data?.personaname}`,
+      images: [
+        {
+          url:
+            steamProfile.data?.avatarfull ||
+            `${process.env.NEXT_PUBLIC_DOMAIN}/cs2.svg`,
+          width: 200,
+          height: 200,
+          alt: `Avatar of ${steamProfile.data?.personaname}`,
+        },
+      ],
+    },
   };
 }
 

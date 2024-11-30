@@ -23,8 +23,8 @@ const justIdNumbers = z
     { message: "Input must be a valid Steam ID." }
   );
 
-const steamLinkSchema = steamCustomLinkSchema
-  .or(steamProfileLinkSchema)
+const steamLinkSchema = steamProfileLinkSchema
+  .or(steamCustomLinkSchema)
   .or(justIdNumbers);
 
 export default steamLinkSchema;
