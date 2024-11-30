@@ -8,6 +8,8 @@ import {
   revalidateSteamUrl,
 } from "@/lib/parse-steamid";
 
+import { redirect } from "next/navigation";
+
 const validateSteamUrlForm = async (_: unknown, formData: FormData) => {
   let steamUrl = formData.get("steamUrl") as string;
   if (!steamUrl) return { error: "Steam URL is required" };
@@ -22,7 +24,7 @@ const validateSteamUrlForm = async (_: unknown, formData: FormData) => {
   if (response.error) {
     return { error: response.error.message, input: steamUrl };
   }
-  return { data: response.data.response.steamid };
+  redirect(`/${response.data.response.steamid}`);
 };
 
 export default validateSteamUrlForm;

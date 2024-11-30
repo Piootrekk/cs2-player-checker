@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const steamCustomLinkSchema = z
   .string()
-  .regex(/^(https:\/\/steamcommunity\.com\/id\/[a-zA-Z0-9-]+)$/, {
+  .regex(/^(https:\/\/steamcommunity\.com\/id\/[a-zA-Z0-9-_]+)$/, {
     message: "Input must be a valid Steam Custom URL.",
   });
 

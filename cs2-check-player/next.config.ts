@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "assets.faceit-cdn.net",
+        port: "",
+        search: "",
+      },
+      {
+        protocol: "https",
         hostname: "flagcdn.com",
         port: "",
         search: "",

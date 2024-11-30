@@ -7,7 +7,6 @@ import React, { useActionState } from "react";
 import validateSteamUrlForm from "../../action/steam-url-verify";
 import { Button } from "@/components/ui/button";
 import LoadingSpin from "@/components/ui/loading-spin";
-import { redirect } from "next/navigation";
 
 const IdSteamForm = () => {
   const [state, action, isPending] = useActionState(
@@ -16,9 +15,6 @@ const IdSteamForm = () => {
     "/"
   );
 
-  if (state?.data) {
-    redirect(`/${state.data}`);
-  }
   return (
     <form className="space-y-4" action={action}>
       <Input
