@@ -48,7 +48,7 @@ type TFaceitEndpointResponse = {
       faceit_elo: number;
       game_player_name: string;
       skill_level_label: string;
-      regions: {};
+      regions: Record<string, unknown>;
       game_profile_id: string;
     };
     csgo: {
@@ -58,7 +58,7 @@ type TFaceitEndpointResponse = {
       faceit_elo: number;
       game_player_name: string;
       skill_level_label: string;
-      regions: {};
+      regions: Record<string, unknown>;
       game_profile_id: string;
     };
   };
@@ -73,7 +73,7 @@ type TFaceitEndpointResponse = {
   faceit_url: string;
   membership_type: string;
   cover_featured_image: string;
-  infractions: {};
+  infractions: Record<string, unknown>;
   verified: boolean;
   activated_at: string;
 };

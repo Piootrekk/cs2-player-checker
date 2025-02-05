@@ -1,18 +1,21 @@
 name: Vercel Production Deployment
+
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
-on: [workflow_dispatch]
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
-
-      - name: Change directory to front
-        run: cd ./cs2-check-player
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
