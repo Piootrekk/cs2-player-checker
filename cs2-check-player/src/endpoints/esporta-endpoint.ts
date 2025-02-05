@@ -1,5 +1,5 @@
 import { TEsportalResponse } from "@/schema/esportal-response.types";
-import { axiosEsportalInstance, TResponse } from "./axios-settings";
+import { axiosInstance, TResponse } from "./axios-settings";
 import { convertToSteamID3 } from "@/lib/parse-steamid";
 import transformErrorToDefault from "@/lib/error-setter";
 
@@ -10,7 +10,7 @@ const getEsportalAccount = async (
 
   const url = `https://esportal.com/api/user_profile/list?id=${steamid3}`;
   try {
-    const res = await axiosEsportalInstance.get<TEsportalResponse>(url);
+    const res = await axiosInstance.get<TEsportalResponse>(url);
     return {
       data: res.data,
       error: undefined,

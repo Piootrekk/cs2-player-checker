@@ -1,32 +1,22 @@
 type TGame = {
   name: string;
+  region?: string;
   skill_level: number;
 };
 
-type TPlayer = {
-  id: string;
-  guid: string;
-  nickname: string;
-  status: string;
-  games: TGame[];
-  country: string;
-  verified: boolean;
-};
-
 type TFaceitPlayerData = {
-  results: TPlayer[];
-  total_count: number;
-};
-
-type FaceitPlayerData = {
   payload: {
-    offset: number;
-    limit: number;
-    players: TFaceitPlayerData;
-  };
-  time: number;
-  env: "prod" | "dev";
-  version: string;
+    id: string;
+    nickname: string;
+    country: string;
+    avatar: "";
+    verification_level: number;
+    games: TGame[];
+  }[];
+  offset: number;
+  limit: number;
+  total: number;
+  has_more: false;
 };
 
 type TGamesDetails = {
@@ -61,11 +51,4 @@ type TFaceitDataDetails = {
   activated_at: string;
 };
 
-export type {
-  FaceitPlayerData,
-  TPlayer,
-  TGame,
-  TFaceitPlayerData,
-  TFaceitDataDetails,
-  TGamesDetails,
-};
+export type { TFaceitPlayerData, TGame, TFaceitDataDetails, TGamesDetails };
